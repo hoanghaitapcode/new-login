@@ -14,8 +14,8 @@ if not os.path.exists(user_data_path):
 
 
 def register_face1():
-    username=register_username_entry.get()
     # Kiểm tra xem người dùng đã đăng ký chưa
+    username=register_username_entry.get()
     if os.path.exists(f"data/{username}.jpg"):
         messagebox.showinfo("Đăng ký", "Tên đăng nhập đã tồn tại. Hãy chọn tên đăng nhập khác.")
         return
@@ -38,17 +38,19 @@ def register_face1():
 def login_verify1():
     username= login_username_entry.get()
     # Kiểm tra xem tên đăng nhập có tồn tại không
-    if not os.path.exists(f"{username}.jpg"):
+    if not os.path.exists(f"data/{username}.jpg"):
         messagebox.showinfo("Đăng nhập", "Tên đăng nhập không tồn tại.")
         return
 
     # Chụp ảnh từ webcam
     capture = cv2.VideoCapture(0)
     ret, frame = capture.read()
+    cv2.imshow('Camera', frame)
     capture.release()
 
+
     # Nạp ảnh đã đăng ký và ảnh vừa chụp
-    known_image = face_recognition.load_image_file(f"{username}.jpg")
+    known_image = face_recognition.load_image_file(f"data/{username}.jpg")
     unknown_image = frame
 
     # Xác định khuôn mặt trong ảnh
@@ -78,9 +80,11 @@ def login_verify1():
         messagebox.showinfo("Đăng nhập", "Xác thực không thành công.")
 
 def register_face():
+    global capture
     global screen4
     global  register_username_entry
     screen4=Toplevel(screen3)
+    screen4.geometry("1280x720")
 
     tk.Label(screen4, text="Tên đăng nhập:").pack()
     register_username_entry = Entry(screen4)
@@ -99,10 +103,9 @@ def window_log_face():
     log_label.place(x=640,y=340)
     login_username_entry = Entry(screen3)
     login_username_entry.place(x=640,y=360)
-    username = login_username_entry
-    log1=Button(screen3, text="Đăng nhập", command=login_verify1)
+    log1 = Button(screen3, text="Đăng nhập", command=login_verify1)
     log1.place(x=640,y=385)
-    reg1=Button(screen3,text="Đăng ký",command=register_face)
+    reg1 = Button(screen3, text="Đăng ký", command=register_face)
     reg1.place(x=640,y=415)
 def send_registration_email(username, email):
     # Cấu hình thông tin email
@@ -145,6 +148,7 @@ def login_verify():
 def register():
     global register_username_entry, register_password_entry, register_email_entry
 
+    global username
     username = register_username_entry.get()
     password = register_password_entry.get()
     email = register_email_entry.get()
