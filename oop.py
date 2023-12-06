@@ -2,11 +2,13 @@ import cv2
 import face_recognition
 import tkinter as tk
 from tkinter import messagebox, Toplevel, Label, Entry, Button
-from PIL import ImageTk
+from PIL import ImageTk,Image
 import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from pygame import *
+
 
 class FaceRecognitionApp:
     def __init__(self):
@@ -17,7 +19,6 @@ class FaceRecognitionApp:
         self.screen = tk.Tk()
         self.screen.geometry("1280x720")
         self.screen.title("anhtruongncc")
-
     def register_face1(self):
         username = self.register_username_entry.get()
         if os.path.exists(f"data/{username}.jpg"):
@@ -83,23 +84,24 @@ class FaceRecognitionApp:
             messagebox.showinfo("Đăng nhập", "Xác thực không thành công.")
 
     def register_face(self):
-        self.screen4 = Toplevel(self.screen)
-        tk.Label(self.screen4, text="Tên đăng nhập:").pack()
+        self.screen4 = Toplevel(self.screen3)
+        self.screen4.geometry("720x360")
+        tk.Label(self.screen4, text="Tên đăng nhập:").place(x=270,y=160)
         self.register_username_entry = Entry(self.screen4)
-        self.register_username_entry.pack(pady=10)
-        Button(self.screen4, text="Đăng ký", command=self.register_face1).pack()
+        self.register_username_entry.place(x=270,y=180)
+        Button(self.screen4, text="Đăng ký", command=self.register_face1).place(x=270,y=215)
 
     def window_log_face(self):
         self.screen3 = Toplevel(self.screen)
-        self.screen3.geometry("1280x720")
-        tk.Label(self.screen3, text="Tên đăng nhập:").place(x=640, y=340)
+        self.screen3.geometry("640x360")
+        tk.Label(self.screen3, text="Tên đăng nhập:").place(x=270, y=180)
         self.login_username_entry = Entry(self.screen3)
-        self.login_username_entry.place(x=640, y=360)
+        self.login_username_entry.place(x=270, y=210)
         username = self.login_username_entry
         log1 = Button(self.screen3, text="Đăng nhập", command=self.login_verify1)
-        log1.place(x=640, y=385)
+        log1.place(x=270, y=235)
         reg1 = Button(self.screen3, text="Đăng ký", command=self.register_face)
-        reg1.place(x=640, y=415)
+        reg1.place(x=270, y=265)
 
     def send_registration_email(self, username, email):
         sender_email = "hhhhai1012@gmail.com"
@@ -156,7 +158,8 @@ class FaceRecognitionApp:
             messagebox.showinfo("Thông báo", "Đăng ký thành công")
 
     def window_register(self):
-        self.screen1 = Toplevel(self.screen)
+        self.screen1 = Toplevel(self.screen2)
+        self.screen1.geometry("640x360")
         Label(self.screen1, text="Username * ").pack()
         self.register_username_entry = tk.Entry(self.screen1)
         self.register_username_entry.pack(pady=10)
@@ -174,6 +177,7 @@ class FaceRecognitionApp:
     def window_log_normal(self):
         self.screen2 = Toplevel(self.screen)
         Label(self.screen2, text="Tên đăng nhập:").pack()
+        self.screen2.geometry("640x360")
         self.login_username_entry = Entry(self.screen2)
         self.login_username_entry.pack(pady=10)
         Label(self.screen2, text="Mật khẩu:").pack()
@@ -184,9 +188,7 @@ class FaceRecognitionApp:
         Button(self.screen2, text="Register", width=10, height=1, command=self.window_register).pack()
 
     def main_screen(self):
-        bg = ImageTk.PhotoImage(file="bg1.webp")
-        bg_image = Label(self.screen, image=bg).place(x=0, y=0, relwidth=1, relheight=1)
-        login1_but = Button(text="Log by username and password", height="2", width="30", command=self.window_log_normal)
+        login1_but = Button(text="Log by username and password" ,height="2", width="30" ,command=self.window_log_normal)
         login1_but.place(x=350, y=550)
         login2_but = Button(text="log by face-id", height="2", width="30", command=self.window_log_face)
         login2_but.place(x=700, y=550)

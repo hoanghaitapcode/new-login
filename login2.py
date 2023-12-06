@@ -1,6 +1,7 @@
 import cv2
 import face_recognition
 import tkinter as tk
+import tkinter as ttk
 from tkinter import  messagebox
 from tkinter import*
 from PIL import ImageTk,Image
@@ -11,7 +12,12 @@ from email.mime.multipart import MIMEMultipart
 user_data_path = "data"
 if not os.path.exists(user_data_path):
     os.makedirs(user_data_path)
-
+def make_entry_transparent(entry):
+    entry.configure(
+        highlightthickness=0,  # Loại bỏ đường viền nổi bật
+        bd=0,  # Loại bỏ viền
+        insertbackground='white'  # Màu chữ con trỏ khi nhập liệu
+    )
 
 def register_face1():
     # Kiểm tra xem người dùng đã đăng ký chưa
@@ -89,24 +95,25 @@ def register_face():
     tk.Label(screen4, text="Tên đăng nhập:").pack()
     register_username_entry = Entry(screen4)
     register_username_entry.pack(pady=10)
+    make_entry_transparent(register_username_entry)
 
     Button(screen4, text="Đăng ký", command=register_face1).pack()
 def window_log_face():
     global screen3
     screen3 = Toplevel(screen)
-    screen3.geometry("1280x720")
+    screen3.geometry("640x360")
 
     global login_username_entry
     global register_username_entry
 
     log_label=Label(screen3, text="Tên đăng nhập:")
-    log_label.place(x=640,y=340)
+    log_label.place(x=280,y=170)
     login_username_entry = Entry(screen3)
-    login_username_entry.place(x=640,y=360)
+    login_username_entry.place(x=280,y=190)
     log1 = Button(screen3, text="Đăng nhập", command=login_verify1)
-    log1.place(x=640,y=385)
+    log1.place(x=280,y=215)
     reg1 = Button(screen3, text="Đăng ký", command=register_face)
-    reg1.place(x=640,y=415)
+    reg1.place(x=280,y=245)
 def send_registration_email(username, email):
     # Cấu hình thông tin email
     sender_email = "hhhhai1012@gmail.com"  # Thay thế bằng địa chỉ email của bạn
@@ -177,6 +184,7 @@ def window_register():
     global register_password_entry
     global register_email_entry
     screen1 = Toplevel(screen)
+    screen1.geometry("640x320")
     Label(screen1, text="Username * ").pack()
     register_username_entry = tk.Entry(screen1)
     register_username_entry.pack(pady=10)
@@ -195,13 +203,16 @@ def window_log_normal():
     global login_password_entry
     global screen2
     screen2 = Toplevel(screen)
+    screen2.geometry("640x360")
 
     Label(screen2, text="Tên đăng nhập:").pack()
     login_username_entry = Entry(screen2)
     login_username_entry.pack(pady=10)
+    make_entry_transparent(login_username_entry)
     Label(screen2,text="Mật khẩu:").pack()
     login_password_entry=Entry(screen2)
     login_password_entry.pack(pady=10)
+    make_entry_transparent(login_password_entry)
 
     Button(screen2, text="Login", width=10, height=1, command=login_verify).pack()
     Button(screen2,text="Register",width=10,height=1,command=window_register).pack()
@@ -211,7 +222,7 @@ def main_screen():
     screen = Tk()
     screen.geometry("1280x720")
     screen.title("GAMELOL")
-    bg=ImageTk.PhotoImage(file="bg1.webp")
+    bg=ImageTk.PhotoImage(file="background.png  ")
     bg_image=Label(screen,image=bg).place(x=0,y=0,relwidth=1,relheight=1)
     login1_but=Button(text="Log by username and password",height="2",width="30",command=window_log_normal)
     login1_but.place(x=350,y=550)
