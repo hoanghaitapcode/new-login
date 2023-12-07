@@ -104,8 +104,8 @@ class FaceRecognitionApp:
         reg1.place(x=270, y=265)
 
     def send_registration_email(self, username, email):
-        sender_email = "hhhhai1012@gmail.com"
-        sender_password = "orhgdylbyzxsghiu"
+        sender_email = "us88.betting.game@gmail.com"
+        sender_password = "qrffziarailtcisr"
 
         msg = MIMEMultipart()
         msg['From'] = sender_email
@@ -160,11 +160,11 @@ class FaceRecognitionApp:
     def window_register(self):
         self.screen1 = Toplevel(self.screen2)
         self.screen1.geometry("640x360")
-        Label(self.screen1, text="Username * ").pack()
+        Label(self.screen1, text="Tên đăng nhập * ").pack()
         self.register_username_entry = tk.Entry(self.screen1)
         self.register_username_entry.pack(pady=10)
         Label(self.screen1, text="").pack()
-        Label(self.screen1, text="Password * ").pack()
+        Label(self.screen1, text="Mật khẩu * ").pack()
         self.register_password_entry = tk.Entry(self.screen1, show="*")
         self.register_password_entry.pack(pady=10)
         Label(self.screen1, text="").pack()
@@ -172,7 +172,7 @@ class FaceRecognitionApp:
         self.register_email_entry = tk.Entry(self.screen1)
         self.register_email_entry.pack(pady=10)
 
-        Button(self.screen1, text="Register", width=10, height=1, command=self.register).pack()
+        Button(self.screen1, text="Đăng ký", width=10, height=1, command=self.register).pack()
 
     def window_log_normal(self):
         self.screen2 = Toplevel(self.screen)
@@ -184,13 +184,15 @@ class FaceRecognitionApp:
         self.login_password_entry = Entry(self.screen2)
         self.login_password_entry.pack(pady=10)
 
-        Button(self.screen2, text="Login", width=10, height=1, command=self.login_verify).pack()
-        Button(self.screen2, text="Register", width=10, height=1, command=self.window_register).pack()
+        Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).pack()
+        Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).pack()
 
     def main_screen(self):
-        login1_but = Button(text="Log by username and password" ,height="2", width="30" ,command=self.window_log_normal)
+        bg = ImageTk.PhotoImage(file="392087-PCH79B-499.jpg")
+        bg_image = Label(self.screen, image=bg).place(x=0, y=0, relwidth=1, relheight=1)
+        login1_but = Button(text="Đăng nhập với mật khẩu" ,height="2", width="30" ,command=self.window_log_normal)
         login1_but.place(x=350, y=550)
-        login2_but = Button(text="log by face-id", height="2", width="30", command=self.window_log_face)
+        login2_but = Button(text="Đăng nhập với nhận diện khuôn mặt", height="2", width="30", command=self.window_log_face)
         login2_but.place(x=700, y=550)
 
         self.screen.mainloop()
