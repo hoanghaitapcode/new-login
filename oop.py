@@ -45,6 +45,12 @@ class FaceRecognitionApp:
         messagebox.showinfo("Đăng ký", "Đăng ký thành công.")
         self.screen4.destroy()
 
+    def set_background(self, parent, image_path):
+        bg1 = ImageTk.PhotoImage(file=image_path)
+        bg_label = tk.Label(parent, image=bg1)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        bg_label.image = bg1
+
     def login_verify1(self):
         username = self.login_username_entry.get()
         if not os.path.exists(f"data/{username}.jpg"):
@@ -90,6 +96,7 @@ class FaceRecognitionApp:
     def register_face(self):
         self.screen4 = Toplevel(self.screen3)
         self.screen4.geometry("780x360")
+        self.set_background(self.screen4, "392087-PCH79B-499.jpg")
         tk.Label(self.screen4, text="Tên đăng nhập:").place(x=270,y=160)
         self.register_username_entry = Entry(self.screen4)
         self.register_username_entry.place(x=270,y=180)
@@ -98,6 +105,7 @@ class FaceRecognitionApp:
     def window_log_face(self):
         self.screen3 = Toplevel(self.screen)
         self.screen3.geometry("780x360")
+        self.set_background(self.screen3, "392087-PCH79B-499.jpg")
 
 
         tk.Label(self.screen3, text="Tên đăng nhập:").place(x=270, y=180)
@@ -178,35 +186,35 @@ class FaceRecognitionApp:
     def window_register(self):
         self.screen1 = Toplevel(self.screen2)
         self.screen1.geometry("780x360")
-        Label(self.screen1, text="Tên đăng nhập * ").pack()
+        self.set_background(self.screen1, "392087-PCH79B-499.jpg")
+        Label(self.screen1, text="Tên đăng nhập * ").place(x=280,y=90)
         self.register_username_entry = tk.Entry(self.screen1)
-        self.register_username_entry.pack(pady=10)
-        Label(self.screen1, text="").pack()
-        Label(self.screen1, text="Mật khẩu * ").pack()
+        self.register_username_entry.place(x=280,y=120)
+        Label(self.screen1, text="Mật khẩu * ").place(x=280,y=150)
         self.register_password_entry = tk.Entry(self.screen1, show="*")
-        self.register_password_entry.pack(pady=10)
-        Label(self.screen1, text="").pack()
-        Label(self.screen1, text="email *").pack()
+        self.register_password_entry.place(x=280,y=180)
+        Label(self.screen1, text="email *").place(x=280,y=210)
         self.register_email_entry = tk.Entry(self.screen1)
-        self.register_email_entry.pack(pady=10)
+        self.register_email_entry.place(x=280,y=240)
 
-        Button(self.screen1, text="Đăng ký", width=10, height=1, command=self.register).pack()
+        Button(self.screen1, text="Đăng ký", width=10, height=1, command=self.register).place(x=280,y=270)
 
     def window_log_normal(self):
         self.screen2 = Toplevel(self.screen)
-        Label(self.screen2, text="Tên đăng nhập:").pack()
+        self.set_background(self.screen2, "392087-PCH79B-499.jpg")
         self.screen2.geometry("640x360")
+        Label(self.screen2, text="Tên đăng nhập:").place(x=280, y=90)
         self.login_username_entry = Entry(self.screen2)
-        self.login_username_entry.pack(pady=10)
-        Label(self.screen2, text="Mật khẩu:").pack()
+        self.login_username_entry.place(x=280,y=120)
+        Label(self.screen2, text="Mật khẩu:").place(x=280,y=140)
         self.login_password_entry = Entry(self.screen2)
-        self.login_password_entry.pack(pady=10)
+        self.login_password_entry.place(x=280,y=170)
 
-        Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).pack()
-        Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).pack()
+        Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).place(x=280,y=200)
+        Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).place(x=280,y=240)
 
     def main_screen(self):
-        bg = ImageTk.PhotoImage(file="392087-PCH79B-499.jpg")
+        bg = ImageTk.PhotoImage(file="cuoicung-01.png")
         bg_image = Label(self.screen, image=bg).place(x=0, y=0, relwidth=1, relheight=1)
         login1_but = Button(text="Đăng nhập với mật khẩu" ,height="2", width="30" ,command=self.window_log_normal)
         login1_but.place(x=350, y=550)
