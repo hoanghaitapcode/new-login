@@ -8,6 +8,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from validate_email_address import validate_email
+import tkinter.font as tkfont
 from pygame import *
 
 
@@ -20,6 +21,7 @@ class FaceRecognitionApp:
         self.screen = tk.Tk()
         self.screen.geometry("1280x720")
         self.screen.title("US88")
+
     def register_face1(self):
         username = self.register_username_entry.get()
         if os.path.exists(f"data/{username}.jpg"):
@@ -44,11 +46,29 @@ class FaceRecognitionApp:
         messagebox.showinfo("Đăng ký", "Đăng ký thành công.")
         self.screen4.destroy()
 
-    def changeEntryBg(self, entry, image_path):
+    def createEntryWithImage(root, image_path, toado1, toado2):
+        entry_frame = tk.Frame(root, width=720, height=360)
+        entry_frame.pack()
+
+        custom_font = tkfont.Font("", 12, "normal", foreground="White")
+
+        entry = tk.Entry(entry_frame, width=720, borderwidth=0, highlightthickness=0, font=custom_font)
+        entry.configure(fg="white")
+
+        # Tạo Label để hiển thị hình ảnh
         image = Image.open(image_path)
-        image = image.resize((20,20))
         photo = ImageTk.PhotoImage(image)
-        entry.image=photo
+        label = tk.Label(entry_frame, image=photo)
+        label.image = photo  # Giữ tham chiếu đến ảnh
+
+        # Tạo Entry widget
+        entry = tk.Entry(entry_frame, bg="#2c3e50")
+
+        # Đặt vị trí của Label và Entry trong frame
+        label.place(x=toado1, y=toado2)
+        entry.place(x=toado1 + 35, y=toado2 + 12)
+
+        return entry_frame, entry
 
     def login_verify1(self):
         username = self.login_username_entry.get()
@@ -97,18 +117,17 @@ class FaceRecognitionApp:
         self.screen4.geometry("780x360")
         tk.Label(self.screen4, text="Tên đăng nhập:").place(x=270,y=160)
         self.register_username_entry = Entry(self.screen4)
-        self.changeEntryBg(self.register_username_entry,"D:/pythonProject1/1x/username.png")
         self.register_username_entry.place(x=270,y=180)
         Button(self.screen4, text="Đăng ký", command=self.register_face1).place(x=270,y=215)
 
     def window_log_face(self):
         self.screen3 = Toplevel(self.screen)
         self.screen3.geometry("780x360")
-
-
-        tk.Label(self.screen3, text="Tên đăng nhập:").place(x=270, y=180)
-        self.login_username_entry = Entry(self.screen3  )
-        self.login_username_entry.place(x=270, y=210)
+        mode_x =270
+        mode_y=180
+        tk.Label(self.screen3, text="Tên đăng nhập:").place(mode_x,mode_y)
+        self.login_username_entry = Entry(self.screen3 )
+        self.login_username_entry.place(mode_x,mode_y)
         username = self.login_username_entry
         log1 = Button(self.screen3, text="Đăng nhập", command=self.login_verify1)
         log1.place(x=270, y=235)
@@ -199,13 +218,19 @@ class FaceRecognitionApp:
         Button(self.screen1, text="Đăng ký", width=10, height=1, command=self.register).pack()
 
     def window_log_normal(self):
+        global screen2
         self.screen2 = Toplevel(self.screen)
         Label(self.screen2, text="Tên đăng nhập:").pack()
         self.screen2.geometry("640x360")
         self.login_username_entry = Entry(self.screen2)
         self.login_username_entry.pack(pady=10)
         Label(self.screen2, text="Mật khẩu:").pack()
-        self.login_password_entry = Entry(self.screen2)
+        #self.login_password_entry = Entry(self.screen2)
+        toado3=160
+        toado4=180
+        self.login_password_entry = self.createEntryWithImage(screen2, "D:/pythonProject1/1x/newpass.png", toado3,
+                                                              toado4)
+        self.login_password_entry.pack(pady=10)
 
         Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).pack()
         Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).pack()
