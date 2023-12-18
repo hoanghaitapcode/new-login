@@ -206,12 +206,12 @@ class FaceRecognitionApp:
         Label(self.screen2, text="Tên đăng nhập:").place(x=280, y=90)
         self.login_username_entry = Entry(self.screen2)
         self.login_username_entry.place(x=280,y=120)
-        Label(self.screen2, text="Mật khẩu:").place(x=280,y=140)
+        Label(self.screen2, text="Mật khẩu:").place(x=280,y=150)
         self.login_password_entry = Entry(self.screen2)
-        self.login_password_entry.place(x=280,y=170)
+        self.login_password_entry.place(x=280,y=180)
 
-        Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).place(x=280,y=200)
-        Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).place(x=280,y=240)
+        Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).place(x=280,y=220)
+        Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).place(x=280,y=260)
 
     def main_screen(self):
         bg = ImageTk.PhotoImage(file="cuoicung-01.png")
