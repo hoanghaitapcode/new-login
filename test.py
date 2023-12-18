@@ -20,7 +20,6 @@ class FaceRecognitionApp:
         self.screen = tk.Tk()
         self.screen.geometry("1280x720")
         self.screen.title("US88")
-
     def register_face1(self):
         username = self.register_username_entry.get()
         if os.path.exists(f"data/{username}.jpg"):
@@ -44,6 +43,12 @@ class FaceRecognitionApp:
         cv2.imwrite(f"data/{username}.jpg", frame)
         messagebox.showinfo("Đăng ký", "Đăng ký thành công.")
         self.screen4.destroy()
+
+    def changeEntryBg(self, entry, image_path):
+        image = Image.open(image_path)
+        image = image.resize((20,20))
+        photo = ImageTk.PhotoImage(image)
+        entry.image=photo
 
     def login_verify1(self):
         username = self.login_username_entry.get()
@@ -92,6 +97,7 @@ class FaceRecognitionApp:
         self.screen4.geometry("780x360")
         tk.Label(self.screen4, text="Tên đăng nhập:").place(x=270,y=160)
         self.register_username_entry = Entry(self.screen4)
+        self.changeEntryBg(self.register_username_entry,"D:/pythonProject1/1x/username.png")
         self.register_username_entry.place(x=270,y=180)
         Button(self.screen4, text="Đăng ký", command=self.register_face1).place(x=270,y=215)
 
@@ -200,7 +206,6 @@ class FaceRecognitionApp:
         self.login_username_entry.pack(pady=10)
         Label(self.screen2, text="Mật khẩu:").pack()
         self.login_password_entry = Entry(self.screen2)
-        self.login_password_entry.pack(pady=10)
 
         Button(self.screen2, text="Đăng nhập", width=10, height=1, command=self.login_verify).pack()
         Button(self.screen2, text="Đăng ký", width=10, height=1, command=self.window_register).pack()
